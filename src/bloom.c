@@ -22,9 +22,12 @@ uint32_t * BF_get_filter_cells(
     uint32_t filter_len
 ) {
 
-    for (int i = 0; i < seed_count; i++) {
-        uint32_t seed_uint32 = (uint32_t)(seeds[i] * UINT32_MAX);
-        uint32_t hash_uint32 = murmurhash(key, key_len, seed_uint32);
+    for (uint32_t i = 0; i < seed_count; i++) {
+        uint32_t hash_uint32 = murmurhash(
+            key,
+            key_len,
+            (uint32_t)(seeds[i] * UINT32_MAX)
+        );
 
         cells[i] = (uint32_t)(hash_uint32 % filter_len);
     }

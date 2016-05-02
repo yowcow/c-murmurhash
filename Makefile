@@ -17,6 +17,7 @@ test: $(BUILD)/murmurhash-test $(BUILD)/mt-test $(BUILD)/bloom-test
 	./$(BUILD)/murmurhash-test
 	./$(BUILD)/mt-test
 	./$(BUILD)/bloom-test
+	prove perl6/bloom-filter.p6
 
 $(BUILD)/bloom.o:
 	mkdir -p $(BUILD) && \

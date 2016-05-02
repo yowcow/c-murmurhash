@@ -1,0 +1,4 @@
+language: perl6
+
+script:
+  - make && make test
