@@ -1,3 +1,0 @@
-[submodule "murmurhash.c"]
-	path = murmurhash.c
-	url = git@github.com:jwerle/murmurhash.c.git
