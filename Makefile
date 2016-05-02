@@ -1,10 +1,10 @@
-.PHONY: update-submodules test clean
+.PHONY: test clean
 
 BUILD=build
 RESOURCES=resources
 SRC=src
 
-all: update-submodules $(BUILD)/libbloom.so
+all: $(BUILD)/libbloom.so
 
 $(BUILD)/libbloom.so: $(BUILD)/murmurhash.o $(BUILD)/bloom.o
 	mkdir -p $(RESOURCES) && \
@@ -51,9 +51,6 @@ $(BUILD)/mt-test:
 	gcc -Wall -fPIC -O2 -I mt \
 		$(SRC)/mt-test.c \
 		-o $(BUILD)/mt-test
-
-update-submodules:
-	git submodule update --init
 
 clean:
 	-rm -rf $(BUILD) $(RESOURCES)
