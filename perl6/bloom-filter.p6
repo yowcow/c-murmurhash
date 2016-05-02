@@ -26,16 +26,16 @@ sub get-filter-cells(
     is symbol('BF_get_filter_cells')
     { * }
 
-sub filter-cells(Cool:D :$key, :@seeds, Int:D :$filter-length --> CArray[uint32]) {
+sub filter-cells(Cool:D :$key, CArray[num64] :$seeds, Int:D :$filter-length --> CArray[uint32]) {
     my $cells = CArray[uint32].new;
-    $cells[@seeds.elems - 1] = 0;
+    $cells[$seeds.elems - 1] = 0;
 
     get-filter-cells(
         $cells,
         $key,
         $key.chars,
-        @seeds,
-        @seeds.elems,
+        $seeds,
+        $seeds.elems,
         $filter-length,
     );
 

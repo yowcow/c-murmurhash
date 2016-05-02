@@ -8,7 +8,7 @@ all: $(BUILD)/libbloom.so
 
 $(BUILD)/libbloom.so: $(BUILD)/murmurhash.o $(BUILD)/bloom.o
 	mkdir -p $(RESOURCES) && \
-	gcc -Wall -fPIC -shared -O2 -I murmurhash.c -I mt -I $(SRC) \
+	gcc -std=c99 -Wall -fPIC -shared -O2 -I murmurhash.c -I mt -I $(SRC) \
 	$(BUILD)/murmurhash.o \
 	$(BUILD)/bloom.o \
 	-o $(RESOURCES)/libbloom.so
@@ -21,13 +21,13 @@ test: $(BUILD)/murmurhash-test $(BUILD)/mt-test $(BUILD)/bloom-test
 
 $(BUILD)/bloom.o:
 	mkdir -p $(BUILD) && \
-	gcc -Wall -fPIC -O2 -c -I murmurhash.c -I mt -I $(SRC) \
+	gcc -std=c99 -Wall -fPIC -O2 -c -I murmurhash.c -I mt -I $(SRC) \
 		$(SRC)/bloom.c \
 		-o $(BUILD)/bloom.o
 
 $(BUILD)/bloom-test: $(BUILD)/murmurhash.o $(BUILD)/bloom.o
 	mkdir -p $(BUILD) && \
-	gcc -Wall -fPIC -O2 -I murmurhash.c -I mt -I $(SRC) \
+	gcc -std=c99 -Wall -fPIC -O2 -I murmurhash.c -I mt -I $(SRC) \
 		$(BUILD)/murmurhash.o \
 		$(BUILD)/bloom.o \
 		$(SRC)/bloom-test.c \
@@ -35,20 +35,20 @@ $(BUILD)/bloom-test: $(BUILD)/murmurhash.o $(BUILD)/bloom.o
 
 $(BUILD)/murmurhash.o:
 	mkdir -p $(BUILD) && \
-	gcc -Wall -fPIC -O2 -c -I murmurhash.c \
+	gcc -std=c99 -Wall -fPIC -O2 -c -I murmurhash.c \
 		murmurhash.c/murmurhash.c \
 		-o $(BUILD)/murmurhash.o
 
 $(BUILD)/murmurhash-test: $(BUILD)/murmurhash.o
 	mkdir -p $(BUILD) && \
-	gcc -Wall -fPIC -O2 -I murmurhash.c \
+	gcc -std=c99 -Wall -fPIC -O2 -I murmurhash.c \
 		$(BUILD)/murmurhash.o \
 		$(SRC)/murmurhash-test.c \
 		-o $(BUILD)/murmurhash-test
 
 $(BUILD)/mt-test:
 	mkdir -p $(BUILD) && \
-	gcc -Wall -fPIC -O2 -I mt \
+	gcc -std=c99 -Wall -fPIC -O2 -I mt \
 		$(SRC)/mt-test.c \
 		-o $(BUILD)/mt-test
 
