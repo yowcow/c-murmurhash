@@ -1,20 +1,32 @@
-.PHONY: clean
+.PHONY: update-submodules clean
 
-all: build/murmurhash3.o
+BUILD=build
+SRC=src
 
-build/murmurhash3.o:
-	mkdir -p build && \
-	gcc -c -Wall -fPIC -I src -std=c11 -O2 \
-	src/murmurhash3.c \
-	-o build/murmurhash3.o
+all: update-submodules
 
-test: build/murmurhash3-test
-	./build/murmurhash3-test
+test: $(BUILD)/murmurhash-test $(BUILD)/mt-test
+	./$(BUILD)/murmurhash-test
+	./$(BUILD)/mt-test
 
-build/murmurhash3-test: build/murmurhash3.o
-	gcc -Wall -fPIC -I src -std=c11 -O2 \
-	build/murmurhash3.o src/murmurhash3-test.c \
-	-o build/murmurhash3-test
+$(BUILD)/murmurhash.o:
+	mkdir -p $(BUILD) && \
+	gcc -Wall -fPIC -O2 -c -I murmurhash.c \
+		murmurhash.c/murmurhash.c \
+		-o $(BUILD)/murmurhash.o
+
+$(BUILD)/murmurhash-test: $(BUILD)/murmurhash.o
+	gcc -Wall -fPIC -O2 -I murmurhash.c \
+		murmurhash.c/murmurhash.c $(SRC)/murmurhash-test.c \
+		-o $(BUILD)/murmurhash-test
+
+$(BUILD)/mt-test:
+	gcc -Wall -fPIC -O2 -I mt \
+		$(SRC)/mt-test.c \
+		-o $(BUILD)/mt-test
+
+update-submodules:
+	git submodule update --init
 
 clean:
 	-rm -rf build
